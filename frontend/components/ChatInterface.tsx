@@ -27,7 +27,7 @@ export default function ChatInterface() {
     wsRef.current = ws;
 
     ws.onopen = () => {
-      ws.send(JSON.stringify({ task }));
+      ws.send(JSON.stringify({ task, api_key: process.env.NEXT_PUBLIC_AETHER_API_KEY }));
     };
 
     ws.onmessage = (event) => {
