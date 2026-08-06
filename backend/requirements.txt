@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+langgraph
+langchain
+langchain-community
+chromadb
+python-dotenv
+pydantic
+pydantic-settings
+sqlmodel
+websockets
+httpx
+langchain-groq
+chromadb
+ddgs
