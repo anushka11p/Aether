@@ -14,10 +14,13 @@ async def websocket_run(websocket: WebSocket):
     await websocket.accept()
     try:
         data = await websocket.receive_json()
+
         if data.get("api_key") != settings.AETHER_API_KEY:
             await websocket.send_json({"type": "error", "message": "Unauthorized"})
             await websocket.close()
             return
+
+        task = data.get("task", "")
 
         initial_state: AgentState = {
             "task": task,
@@ -43,7 +46,6 @@ async def websocket_run(websocket: WebSocket):
                 "iteration": node_state.get("iteration"),
             })
 
-        # Persist to SQLite — always, this is just a log
         session = next(get_session())
         run = Run(
             task=final_state["task"],
@@ -55,7 +57,6 @@ async def websocket_run(websocket: WebSocket):
         session.refresh(run)
         session.close()
 
-        # Persist to ChromaDB — only if search actually succeeded
         if final_state.get("search_succeeded"):
             add_memory(
                 run_id=run.id,
