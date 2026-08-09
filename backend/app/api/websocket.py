@@ -4,6 +4,7 @@ from app.core.state import AgentState
 from app.core.database import get_session
 from app.models.run import Run
 from app.memory.vector_store import add_memory
+from app.core.config import settings
 
 router = APIRouter()
 graph = build_graph()
@@ -13,7 +14,10 @@ async def websocket_run(websocket: WebSocket):
     await websocket.accept()
     try:
         data = await websocket.receive_json()
-        task = data.get("task", "")
+        if data.get("api_key") != settings.AETHER_API_KEY:
+            await websocket.send_json({"type": "error", "message": "Unauthorized"})
+            await websocket.close()
+            return
 
         initial_state: AgentState = {
             "task": task,
