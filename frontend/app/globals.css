@@ -1,7 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
@@ -20,35 +21,25 @@
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
-
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
-
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
-
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
-
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
-
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
-
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
-
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
-
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
 
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
@@ -100,7 +91,6 @@
   --sidebar-primary: oklch(0.205 0 0);
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 }
@@ -144,61 +134,46 @@
   --sidebar-primary: oklch(0.488 0.243 264.376);
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-/* -------------------------------------------------------
-   PIXEL ART SYSTEM
-------------------------------------------------------- */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
 
-* {
+  html {
+    @apply font-sans;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    margin: 0;
+  }
+
+  button,
+  input,
+  textarea {
+    font-family: "Press Start 2P", monospace;
+  }
+}
+
+/* ------------------------------------------------ */
+/* AETHER PIXEL FONT                                */
+/* ------------------------------------------------ */
+
+.pixel-font {
+  font-family: "Press Start 2P", monospace;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: 0;
   image-rendering: pixelated;
 }
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-}
-
-/* Pixel font used throughout the Aether interface */
-.pixel-font {
-  font-family: "Press Start 2P", monospace;
-  font-weight: 400;
-  letter-spacing: 0;
-  -webkit-font-smoothing: none;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Make buttons and inputs inherit the pixel font */
-button,
-input,
-textarea {
-  font-family: "Press Start 2P", monospace;
-}
-
-/* Remove modern browser styling */
-button,
-input {
-  border-radius: 0;
-}
-
-/* Pixel selection */
-::selection {
-  background: #3f6b3f;
-  color: #f4ead5;
-}
-
-/* -------------------------------------------------------
-   BLOB ANIMATION
-------------------------------------------------------- */
+/* ------------------------------------------------ */
+/* PIXEL MASCOT ANIMATION                           */
+/* ------------------------------------------------ */
 
 @keyframes blob-jump {
   0% {
@@ -225,7 +200,7 @@ input {
 @keyframes blob-shadow {
   0% {
     transform: scaleX(1);
-    opacity: 0.22;
+    opacity: 0.18;
   }
 
   45% {
@@ -235,16 +210,62 @@ input {
 
   100% {
     transform: scaleX(1);
-    opacity: 0.22;
+    opacity: 0.18;
   }
 }
 
-/* -------------------------------------------------------
-   MOBILE
-------------------------------------------------------- */
+/* ================================
+   AETHER PIXEL UI
+   ================================ */
 
-@media (max-width: 640px) {
-  .pixel-font {
-    letter-spacing: -0.2px;
-  }
+.pixel-font {
+  font-family: "Press Start 2P", monospace;
+  image-rendering: pixelated;
+}
+
+.pixel-body {
+  font-family: "Press Start 2P", monospace;
+  image-rendering: pixelated;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+}
+
+/* Keep text readable while preserving pixel aesthetic */
+.aether-title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 30px;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+.aether-subtitle {
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  line-height: 2;
+}
+
+.aether-input {
+  font-family: "Press Start 2P", monospace;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+}
+
+.aether-button {
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+
+.aether-steps {
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  line-height: 2.4;
+  letter-spacing: 0.2px;
+}
+
+.aether-output {
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  line-height: 2.2;
+  letter-spacing: 0.15px;
 }
