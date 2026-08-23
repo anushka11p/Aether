@@ -15,6 +15,7 @@ async def websocket_run(websocket: WebSocket):
     try:
         data = await websocket.receive_json()
 
+        
         if data.get("api_key") != settings.AETHER_API_KEY:
             await websocket.send_json({"type": "error", "message": "Unauthorized"})
             await websocket.close()
